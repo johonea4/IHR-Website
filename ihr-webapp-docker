@@ -1,0 +1,6 @@
+FROM mongo
+RUN mkdir -p /data
+VOLUME /data/db
+WORKDIR /data
+EXPOSE 3000
+CMD mongodb

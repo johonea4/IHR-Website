@@ -2,17 +2,18 @@ version: '3.3'
 
 services:
   mongodb:
-    image: 'mongo'
+    image: 'ihr-webapp-db'
+    build: './ihr-webappdb-docker'
     hostname: ihr-webapp-db
     container_name: ihr_web_app_db
-    ports:
-      - '27017:27017'
+    expose:
+      - '27017'
     volumes:
       - ./database:/data
 
   ihr-webapp:
     image: ihr-webapp
-    build: .
+    build: './ihr-webapp-docker'
     environment:
       NODE_ENV: production
     ports:
@@ -20,4 +21,4 @@ services:
     depends_on: 
       - mongodb
     volumes:
-    - './ihr-webapp:/usr/src/app'
+    - './ihr-webapp:/usr/local/app'
