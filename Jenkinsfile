@@ -1,18 +1,26 @@
 #!/usr/bin/env groovy
 
-pipeline{
+pipeline 
+{
     agent any
 
-    stages{
-        stage('test'){
-            steps {
+    stages 
+    {
+        stage('Test')
+        {
+            steps 
+            {
                 sh '''echo "Good to Go!"'''
             }
         }
-        stage('deploy'){
-            steps{
-                script{
-                    docker.withRegistry('https://build.hdap.gatech.edu'){
+        stage('Deploy') 
+        {
+            steps 
+            {
+                script 
+                {
+                    docker.withRegistry('https://build.hdap.gatech.edu') 
+                    {
                         //Build and push the database image
                         def databaseImage = docker.build("ihrwebappdb:1.0", "-f ./ihr-webappdb-docker ./ihr-webapp-db")
                         databaseImage.push('latest')
