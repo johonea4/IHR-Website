@@ -8,7 +8,7 @@
         h1 Welcome to the IHR Prototype App!
  
         if user
-          p Welcome, #{user.fullName}
+          p Welcome, #{user.displayName}
           p
             a.small(href="dashboard") View Dashboard
           form(action='/logout', method='POST')
