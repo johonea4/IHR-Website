@@ -156,6 +156,10 @@ app.get('/dashboard', ensureAuthenticated, function (req, res) {
     res.render('dashboard', { user: req.user });
 });
 
+app.get('/history', ensureAuthenticated, function (req, res) {
+    res.render('history', {user: req.user });
+});
+
 app.get('/login',
     function (req, res, next) {
         passport.authenticate('azuread-openidconnect',
