@@ -34,7 +34,7 @@ pipeline
         stage('Notify') {
             steps {
                 script {
-                    rancher confirm: true, credentialId: 'rancher-server', endpoint: 'https://rancher.hdap.gatech.edu/v2-beta', environmentId: '1a7', environments: '', image: 'build.hdap.gatech.edu/ihrwebappdb:latest', ports: '', service: 'IHR/mongodb', timeout: 120
+                    rancher confirm: true, credentialId: 'rancher-server', endpoint: 'https://rancher.hdap.gatech.edu/v2-beta', environmentId: '1a7', environments: '', image: 'build.hdap.gatech.edu/ihrwebappdb:latest', ports: '', service: 'IHR/ihr-webapp-db', timeout: 120
                     rancher confirm: true, credentialId: 'rancher-server', endpoint: 'https://rancher.hdap.gatech.edu/v2-beta', environmentId: '1a7', environments: '', image: 'build.hdap.gatech.edu/ihrwebapp:latest', ports: '', service: 'IHR/ihr-webapp', timeout: 120
                 }
             }
