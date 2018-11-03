@@ -56,6 +56,7 @@ app.use('/login', login.router);
 app.use('/dashboard', login.ensureAuthenticated, dashboard.router);
 app.use('/history', login.ensureAuthenticated, history.router);
 app.use('/fhir-util', fhirUtil.router);
+//app.use('/fhir-util/test', fhirUtil.router);
 app.use('/logout', logout.router);
 
 
