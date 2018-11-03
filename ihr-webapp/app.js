@@ -27,6 +27,7 @@ var fhir = require('fhir');
 var login = require('./routes/login');
 var dashboard = require('./routes/dashboard');
 var history = require('./routes/history');
+var fhirUtil = require('./routes/fhirUtil');
 var logout = require('./routes/logout');
 
 //-----------------------------------------------------------------------------
@@ -54,6 +55,7 @@ app.get('/', function (req, res) {
 app.use('/login', login.router);
 app.use('/dashboard', login.ensureAuthenticated, dashboard.router);
 app.use('/history', login.ensureAuthenticated, history.router);
+app.use('/fhir-util', login.ensureAuthenticated, fhirUtil.router);
 app.use('/logout', logout.router);
 
 
