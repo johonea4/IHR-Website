@@ -7,3 +7,7 @@ router.get('/', function (req, res) {
 });
 
 exports.router = router;
+exports.setUser = function(){
+
+    console.log("hellow testing!!!!!!");
+}
