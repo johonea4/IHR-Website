@@ -8,9 +8,12 @@ router.get('/', function (req, res) {
     res.render('fhirUtil', { user: req.user });
 });
 
-router.get('/test', function (req, res) {
+router.get('/getUser', function (req, res) {
      fhir.getUser();
 });
 
+router.get('/setUser', function (req, res) {
+    fhir.setUser();
+});
 
 exports.router = router;
