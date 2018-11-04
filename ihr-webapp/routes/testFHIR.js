@@ -4,6 +4,7 @@
 'use strict';
 //var fhir = require('fhir');
 var Fhir = require('fhir').Fhir;
+var client = require('fhir.js');
 var fhir = new Fhir();
 
 // var resource = {

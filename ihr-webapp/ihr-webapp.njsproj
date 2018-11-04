@@ -32,25 +32,35 @@
   <ItemGroup>
     <Compile Include="app.js" />
     <Compile Include="config.js" />
+    <Compile Include="routes\dashboard.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="routes\fhirUtil.js" />
+    <Compile Include="routes\history.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="routes\login.js">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="routes\logout.js">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="routes\testFHIR.js" />
     <Content Include="package.json" />
     <Content Include="README.md" />
     <Content Include="views\dashboard.pug">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="views\fhirUtil.pug" />
     <Content Include="views\index.pug">
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\history.pug">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="views\fhirUtil.pug">
-      <SubType>Code</SubType>
-    </Content>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="utils\" />
     <Folder Include="routes\" />
     <Folder Include="views\" />
   </ItemGroup>

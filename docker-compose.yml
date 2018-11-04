@@ -9,7 +9,7 @@ services:
     expose:
       - '27017'
     volumes:
-      - ./database:/data
+      - ./database:/data/db
 
   ihr-webapp:
     image: ihr-webapp
