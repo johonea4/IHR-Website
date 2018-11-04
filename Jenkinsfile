@@ -22,10 +22,10 @@ pipeline
                     docker.withRegistry('https://build.hdap.gatech.edu') 
                     {
                         //Build and push the database image
-                        def databaseImage = docker.build("ihrwebappdb:1.0", "-f ./ihr-webappdb-docker .")
+                        def databaseImage = docker.build("ihrwebappdb:${env.BUILD_ID}", "-f ./ihr-webappdb-docker .")
                         databaseImage.push('latest')
 
-                        def appImage = docker.build("ihrwebapp:1.0", "-f ./ihr-webapp-docker .")
+                        def appImage = docker.build("ihrwebapp:${env.BUILD_ID}", "-f ./ihr-webapp-docker .")
                         appImage.push('latest')
                     }
                 }

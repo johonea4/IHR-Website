@@ -1,9 +1,10 @@
 FROM node:8-alpine
 ENV NODE_ENV production
-RUN mkdir -p /usr/local/app
+RUN apk add --update python py-pip
+RUN mkdir -p /usr/local
+COPY "./ihr-webapp" "/usr/local/app"
 WORKDIR /usr/local/app
-COPY "./ihr-webapp/package*.json" "/usr/local/app/"
 RUN npm install
-COPY "./ihr-webapp/*" "/usr/local/app/"
+
 EXPOSE 3000
 CMD npm start
