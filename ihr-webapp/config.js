@@ -1,4 +1,12 @@
-﻿exports.creds = {
+﻿var redHost = '';
+if (process.env.NODE_ENV == 'production') {
+    redHost = 'https://cs6440-f18-prj11.apps.hdap.gatech.edu'
+}
+else {
+    redHost = 'http://localhost:3000';
+}
+
+exports.creds = {
     // Required
     //identityMetadata: 'https://login.microsoftonline.com/<tenant_name>.onmicrosoft.com/v2.0/.well-known/openid-configuration',
     // or equivalently: 'https://login.microsoftonline.com/<tenant_guid>/v2.0/.well-known/openid-configuration'
@@ -18,7 +26,7 @@
     responseMode: 'form_post',
 
     // Required, the reply URL registered in AAD for your app
-    redirectUrl: 'http://localhost:3000/login/auth/openid/return',
+    redirectUrl: redHost + '/login/auth/openid/return',
 
     // Required if we use http for redirectUrl
     allowHttpForRedirectUrl: true,
@@ -70,7 +78,7 @@
 };
 
 // The url you need to go to destroy the session with AAD
-exports.destroySessionUrl = 'https://login.microsoftonline.com/common/oauth2/logout?post_logout_redirect_uri=http://localhost:3000';
+exports.destroySessionUrl = 'https://login.microsoftonline.com/common/oauth2/logout?post_logout_redirect_uri=' + redHost + '/';
 
 // If you want to use the mongoDB session store for session middleware, set to true; otherwise we will use the default
 // session store provided by express-session.
