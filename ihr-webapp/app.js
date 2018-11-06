@@ -57,6 +57,7 @@ app.use('/dashboard', login.ensureAuthenticated, dashboard.router);
 app.use('/history', login.ensureAuthenticated, history.router);
 app.use('/fhir-util', fhirUtil.router);
 app.use('/logout', logout.router);
-
+//Emma add 11.4
+app.use(express.static('public'))
 
 app.listen(3000);

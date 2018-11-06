@@ -2,11 +2,28 @@
   head
     title=title
     link(href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css', rel='stylesheet')
+    style.
+      .verticalhorizontal {   
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        /* bring your own prefixes */
+        transform: translate(-50%, -50%);
+      }
+      .topcorner{
+        position:relative;
+        margin-left: 90%;
+        margin-top: 5%;
+      }
+
+
   body
-    div.container
-      div.jumbotron
-        h1 Welcome to the IHR Prototype App!
- 
+    div.container-fluid
+      <!--div.jumbotron-->
+        <!--h1 Welcome to the IHR Prototype App!-->
+        div.verticalhorizontal
+          <img src="images/ihranywhere.png" alt="app logo" width="190" height="200">
+
         if user
           p Welcome, #{user.displayName}
           p
@@ -19,6 +36,6 @@
           form(action='/logout', method='POST')
             button.btn.btn-default(type="submit") Logout
         else
-          p Welcome to my app, ready to get started?
-          p
-            a.btn.btn-primary(href="/login") Login now
+          <!--p Welcome to my app, ready to get started?-->
+          div.topcorner  
+            a.btn.btn-light(href="/login" border-color="blue") Login now
