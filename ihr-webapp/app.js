@@ -29,6 +29,7 @@ var dashboard = require('./routes/dashboard');
 var history = require('./routes/history');
 var fhirUtil = require('./routes/fhirUtil');
 var logout = require('./routes/logout');
+var userdataentry = require('./routes/UserDataEntry');
 
 //-----------------------------------------------------------------------------
 // Config the app, include middlewares
@@ -57,6 +58,7 @@ app.use('/dashboard', login.ensureAuthenticated, dashboard.router);
 app.use('/history', login.ensureAuthenticated, history.router);
 app.use('/fhir-util', fhirUtil.router);
 app.use('/logout', logout.router);
+app.use('/UserDataEntry', login.ensureAuthenticated, userdataentry.router)
 //Emma add 11.4
 app.use(express.static('public'))
 
