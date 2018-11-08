@@ -1,0 +1,32 @@
+html
+  head
+    title=title
+    link(href='//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css', rel='stylesheet')
+  body
+    div.container
+      div.jumbotron
+        h1 Enter User Data
+        form.userDataForm(action="submit" method="post")
+          fieldset
+            p First Name: 
+              input(type="text" name="firstname")
+            p Last Name: 
+              input(type="text" name="lastname")
+            p Gender: 
+              input(type="radio" name="gender" value="Male") 
+              | Male 
+              input(type="radio" name="gender" value="Female") 
+              | Female 
+              input(type="radio" name="gender" value="Other") 
+              | Other
+            p Date of Birth: 
+              input(type="date" name="dob")
+            p E-mail:
+              input(type="email", name="emailaddress")
+            p Current Medications
+              br
+              textarea(name="medications", cols="50", rows="5")
+            br
+            input(type="submit" value="Submit")                                                
+                        
+
