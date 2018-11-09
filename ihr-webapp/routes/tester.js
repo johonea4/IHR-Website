@@ -5,7 +5,7 @@ var fhirUtil = require('../utils/fhirUtil');
 var dbutil = require('../utils/dbutil');
 
 router.get('/', function (req, res) {
-    res.render('userDataEntry', { formAction: "tester/submit" });
+    res.render('UserDataEntry', { formAction: "tester/submit" });
     console.log("Testing /");
 });
 
