@@ -16,10 +16,7 @@ var expressSession = require('express-session');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var passport = require('passport');
-var util = require('util');
-var config = require('./config');
-var mongoose = require('mongoose');
-var fhir = require('fhir');
+
 
 /******************************************************************************
  * Our Module dependencies.
@@ -27,7 +24,7 @@ var fhir = require('fhir');
 var login = require('./routes/login');
 var dashboard = require('./routes/dashboard');
 var history = require('./routes/history');
-var fhirUtil = require('./routes/fhirUtil');
+var tester = require('./routes/tester');
 var logout = require('./routes/logout');
 var userdataentry = require('./routes/UserDataEntry');
 
@@ -51,12 +48,14 @@ app.use(passport.session());
 
 app.get('/', function (req, res) {
     res.render('index', { user: req.user });
+    //console.log(req.user.sub);
+    //console.log(req.user.oid);
 });
 
 app.use('/login', login.router);
 app.use('/dashboard', login.ensureAuthenticated, dashboard.router);
 app.use('/history', login.ensureAuthenticated, history.router);
-app.use('/fhir-util', fhirUtil.router);
+app.use('/tester', tester.router);
 app.use('/logout', logout.router);
 app.use('/UserDataEntry', login.ensureAuthenticated, userdataentry.router)
 //Emma add 11.4

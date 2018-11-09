@@ -6,7 +6,8 @@ html
     div.container
       div.jumbotron
         h1 Enter User Data
-        form.userDataForm(action="submit" method="post")
+        
+        form.userDataForm(action=formAction method="post")
           fieldset
             p First Name: 
               input(type="text" name="firstname")

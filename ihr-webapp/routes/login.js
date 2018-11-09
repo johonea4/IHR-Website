@@ -47,7 +47,7 @@ passport.use(new OIDCStrategy({
         cookieEncryptionKeys: config.creds.cookieEncryptionKeys,
         clockSkew: config.creds.clockSkew,
     },
-        function (iss, sub, profile, accessToken, refreshToken, done) {
+    function (iss, sub, profile, accessToken, refreshToken, done) {
             if (!profile.oid) {
                 return done(new Error("No oid found"), null);
             }
@@ -81,7 +81,8 @@ router.get('/', function (req, res, next) {
             response: res,
             resourceURL: config.resourceURL,
             customState: 'my_state',
-            failureRedirect: '/'
+            failureRedirect: '/',
+            session: false
         })(req, res, next);
     },
     function (req, res) {
@@ -93,7 +94,7 @@ router.get('/auth/openid/return',
         passport.authenticate('azuread-openidconnect',
             {
                 response: res,
-                failureRedirect: '/'
+                failureRedirect: '/',
             })(req, res, next);
     },
     function (req, res) {
@@ -105,7 +106,7 @@ router.post('/auth/openid/return',
         passport.authenticate('azuread-openidconnect',
             {
                 response: res,                      // required
-                failureRedirect: '/'
+                failureRedirect: '/',
             }
         )(req, res, next);
     },

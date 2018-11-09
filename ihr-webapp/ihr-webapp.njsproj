@@ -6,6 +6,7 @@
     <Name>ihr-webapp</Name>
     <RootNamespace>ihr-webapp</RootNamespace>
     <LastActiveSolutionConfig>Debug|Any CPU</LastActiveSolutionConfig>
+    <SaveNodeJsSettingsInProjectFile>True</SaveNodeJsSettingsInProjectFile>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -20,8 +21,8 @@
     <OutputPath>.</OutputPath>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{349c5851-65df-11da-9384-00065b846f21};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
-    <NodejsPort>1337</NodejsPort>
-    <StartWebBrowser>true</StartWebBrowser>
+    <NodejsPort>3000</NodejsPort>
+    <StartWebBrowser>True</StartWebBrowser>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -35,7 +36,7 @@
     <Compile Include="routes\dashboard.js">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="routes\fhirUtil.js" />
+    <Compile Include="routes\tester.js" />
     <Compile Include="routes\history.js">
       <SubType>Code</SubType>
     </Compile>
@@ -45,21 +46,30 @@
     <Compile Include="routes\logout.js">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="routes\testFHIR.js" />
+    <Compile Include="routes\UserDataEntry.js" />
+    <Compile Include="utils\fhirUtil.js" />
+    <Compile Include="utils\dbutil.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Content Include="package.json" />
+    <Content Include="public\images\ihranywhere.png" />
+    <Content Include="public\images\PILLS.png" />
     <Content Include="README.md" />
     <Content Include="views\dashboard.pug">
       <SubType>Code</SubType>
     </Content>
-    <Content Include="views\fhirUtil.pug" />
     <Content Include="views\index.pug">
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\history.pug">
       <SubType>Code</SubType>
     </Content>
+    <Content Include="views\login.pug" />
+    <Content Include="views\UserDataEntry.pug" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="public\" />
+    <Folder Include="public\images\" />
     <Folder Include="utils\" />
     <Folder Include="routes\" />
     <Folder Include="views\" />

@@ -68,10 +68,10 @@ exports.creds = {
     loggingLevel: 'info',
 
     // Optional. The lifetime of nonce in session or cookie, the default value is 3600 (seconds).
-    nonceLifetime: null,
+    nonceLifetime: 3600,
 
     // Optional. The max amount of nonce saved in session or cookie, the default value is 10.
-    nonceMaxAmount: 5,
+    nonceMaxAmount: 10,
 
     // Optional. The clock skew allowed in token validation, the default value is 300 seconds.
     clockSkew: null,
