@@ -26,11 +26,12 @@ router.post('/submit', function (req, res) {
 
 router.get('/test1', function (req, res) {
     console.log("Testing /test1");
-    fhirtestUtil.addPatient();
+    fhirtestUtil.find('Patient', { name: 'John' }, function (result) { console.log(result); res.redirect('/tester/test2') });
 });
 
 router.get('/test2', function (req, res) {
-    console.log("Testing /test2");
+    fhirtestUtil.addPatient().then(function () { res.redirect('/dashboard') });
+   console.log("Testing /test2");
 });
 
 exports.router = router;

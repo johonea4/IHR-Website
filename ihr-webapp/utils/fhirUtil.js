@@ -25,78 +25,83 @@ module.exports = class fhirUtil {
         this.client = mkFhir({ baseUrl: resourceUrl });
     }
 
-    find(query) {
-        results = [];
+    async find(type, query, cb) {
+        var results = [];
 
-        this.client.search({
-            type: query.type,
-            query: query.query
-        }).then(function (res) {
-            var bundle = res.data;
+        try {
+            const res = await this.client.search({ type: type, query: query });
+            const bundle = res.data;
             var count = (bundle.entry && bundle.entry.length) || 0;
             for (var i = 0; i < count; i++) {
                 results.push(bundle.entry[i]);
-                }
-            }).catch(errFunc);
+            }
+        } catch (err) {
+            errFunc(err);
+        }
 
+        cb(results);
         return results;
     }
 
-    getPatient(pid) {
-        results = null;
-        this.client.read({ type: 'Patient', id: pid }).then(function (res) {
+    async getPatient(pid,cb) {
+        var results = null;
+        try {
+            let res = await this.client.read({ type: 'Patient', id: pid });
             results = res.data();
-        }).catch(errFunc);
+        } catch (err) {
+            errFunc(err);
+        }
 
+        cb(results);
         return results;
     }
-    addPatient(){
+    async addPatient() {
         var entry = {
-            "name": [{
-                "use"   : "official",
-                "text"  : "Eric Lin",
-                "family": "Lin",
-                "given" : "Eric"
+            name: [{
+                use: "official",
+                text: "Eric Lin",
+                family: "Lin",
+                given: "Eric"
+            }],
+            gender: "male",
+            birthDate: "1970-01-01",
+            resourceType: 'Patient',
+            status: "active",
+            medicationCodeableConcept: {
+                coding: [{
+                    system: "http://snomed.info/ct",
+                    code: "318632005",
+                    display: "carvedilol 25 mg"
                 }],
-            "gender": "male",
-            "birthDate": "1970-01-01",
-            "resourceType": 'Patient',
-            "status": "active",
-            "medicationCodeableConcept": {
-                "coding": [{
-                    "system": "http://snomed.info/ct",
-                    "code": "318632005",
-                    "display": "carvedilol 25 mg"
-                }],
-                "text": "carvedilol 25 mg"
+                text: "carvedilol 25 mg"
             },
-            "subject": {"reference": "Patient/23129"},
-            "taken": "y",
-            "dosage": [{
-                "text": "twice daily",
-                "timing": {
-                    "repeat": {
-                    "frequency": 2,
-                    "period": 1,
-                    "periodUnit": "d"
-                    }},
-                "doseQuantity": {
-                    "value": 1,
-                    "unit": "tablet",
-                    "system": "http://snomed.info/ct",
-                    "code": "428673006"
+            subject: { "reference": "Patient/23129" },
+            taken: "y",
+            dosage: [{
+                text: "twice daily",
+                timing: {
+                    repeat: {
+                        frequency: 2,
+                        period: 1,
+                        periodUnit: "d"
+                    }
+                },
+                doseQuantity: {
+                    value: 1,
+                    unit: "tablet",
+                    system: "http://snomed.info/ct",
+                    code: "428673006"
                 }
             }]
-        } 
+        };
         console.log("need to see this first...");
-        this.client.create(
-            entry,
-            function(entry){
-                console.log("are we here?");
-                console.log(entry.id);
-            },
-            function(error){console.error(error);}
-        )   
+        try {
+            let res = await this.client.create({ type: 'Patient', resource: entry });
+            console.log("are we here?");
+            console.log(res);
+        } catch (err) {
+            errFunc(err);
+        }   
     }       
 }
 
