@@ -15,6 +15,40 @@
         margin-left: 90%;
         margin-top: 5%;
       }
+      .bottomright{
+        position:relative;
+        margin-left: 70%;
+        margin-top: 40%;
+      }
+      .part1 {
+        width:50%;
+        height: 50%;
+        float: left;
+        background: white;
+        background-image: url('images/dashboard2.png');
+        background-repeat: no-repeat;
+      }
+      .part2 {
+        width:50%;
+        height: 50%;
+        float: left;
+        background: white;
+        background-image: url('images/History.png');
+        background-repeat: no-repeat;
+
+      }
+      .part3 {
+        width:50%;
+        height: 50%;
+        float: left;
+        background: white;
+      }
+      .part4 {
+        width:50%;
+        height: 50%;
+        float: right;
+        background: white;
+      }
 
 
   body
@@ -27,14 +61,18 @@
         if user
           p Welcome, #{user.displayName}
           p
+          div.part1
             a.small(href="dashboard") View Dashboard
           p
+          div.part2
             a.big(href="history") View History
           p
+          div.part3
             a.big(href="UserDataEntry") Add A Resource
-
-          form(action='/logout', method='POST')
-            button.btn.btn-default(type="submit") Logout
+          p
+          div.bottomright
+            form(action='/logout', method='POST' )
+              button.btn.btn-default(type="submit" ) Logout
         else
           <!--p Welcome to my app, ready to get started?-->
           div.topcorner  
