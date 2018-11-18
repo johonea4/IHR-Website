@@ -38,14 +38,19 @@ router.post('/submit', function (req, res) {
 
 router.get('/test1', function (req, res) {
     console.log("Testing /test1");
-    //fhirtestUtil.find('Patient', { name: 'John' }).then(function (result) { console.log(result); res.redirect('/tester/test2') });
+    fhirtestUtil.find('Patient', { name: 'John' }).then(function (result) { console.log(result); res.redirect('/tester/test2') });
     //fhirtestUtil.addPatientMedication('436536');
-    fhirtestUtil.getPatientMedications('436536');
+    fhirtestUtil.getPatientMedications('436536').then(function (result) {
+        console.log(result);
+    });
 });
 
 router.get('/test2', function (req, res) {
+    console.log("Testing /test2");
     //fhirtestUtil.addPatient().then(function () { res.redirect('/dashboard') });
-   console.log("Testing /test2");
+    fhirtestUtil.getPatientMedications('436536').then(function (result) {
+        console.log(result);
+    });
 });
 
 router.get('/test3', function (req, res) {
