@@ -2,7 +2,6 @@
  * Module dependencies.
  *****************************************************************************/
 'use strict';
-var jquery = require("jquery");
 var mkFhir = require('fhir.js');
 
 var errFunc = function (res) {
@@ -65,9 +64,9 @@ module.exports = class fhirUtil {
 
         try {
             const res = await this.client.search({ type: 'MedicationStatement', resource:{subject : {reference: 'Patient/'+patientID }}});
-            //var bundle = res.data;
+            var bundle = res.data;
             
-            //var count = (bundle.entry && bundle.entry.length) || 0;
+            var count = (bundle.entry && bundle.entry.length) || 0;
             
             //var count = 1;
             //console.log(bundle);
