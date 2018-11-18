@@ -60,34 +60,22 @@ module.exports = class fhirUtil {
     }
 
     async getPatientMedications(patientID) {
-        var results = [];
-
-        try {
-            const res = await this.client.search({ type: 'MedicationStatement', resource:{subject : {reference: 'Patient/'+patientID }}});
-            var bundle = res.data;
-            
-            var count = (bundle.entry && bundle.entry.length) || 0;
-            
-            //var count = 1;
-            //console.log(bundle);
-            //var newBundle = this.client.nextPage({bundle:res.data});
-            //console.log(bundle.nextPage);
-            //console.log(bundle._page);
-            //console.log(bundle._count);
-            //console.log(this.client.nextPage( {bundle : res.data}));
-            console.log();
-            //console.log(this.client._page);
-            //console.log(this.client._count);
-            //for (var i = 0; i < count; i++) {
-                //console.log(bundle.entry[i].resource.subject.reference);
-                //results.push(bundle.entry[i]);
-            //}
-        } catch (err) {
-            errFunc(err);
-        }
-
-        //cb(results);
-        return results;   
-    }   
+        return new Promise(
+            async (resolve, reject) => {
+                var results = [];
+                try {
+                    const res = await this.client.search({ type: 'MedicationStatement', query: { subject: patientID } });
+                    const bundle = res.data;
+                    var count = (bundle.entry && bundle.entry.length) || 0;
+                    for (var i = 0; i < count; i++) {
+                        results.push(bundle.entry[i]);
+                    }
+                    resolve(results);
+                } catch (err) {
+                    errFunc(err);
+                    reject(err);
+                }
+            });
+    }
 }
 
