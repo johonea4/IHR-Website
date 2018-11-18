@@ -2,7 +2,7 @@
  * Module dependencies.
  *****************************************************************************/
 'use strict';
-
+var jquery = require("jquery");
 var mkFhir = require('fhir.js');
 
 var errFunc = function (res) {
@@ -59,53 +59,36 @@ module.exports = class fhirUtil {
             });
         return results;
     }
-    async addPatient() {
-        var entry = {
-            name: [{
-                use: "official",
-                text: "Eric Lin",
-                family: "Lin",
-                given: "Eric"
-            }],
-            gender: "male",
-            birthDate: "1970-01-01",
-            resourceType: 'Patient',
-            status: "active",
-            medicationCodeableConcept: {
-                coding: [{
-                    system: "http://snomed.info/ct",
-                    code: "318632005",
-                    display: "carvedilol 25 mg"
-                }],
-                text: "carvedilol 25 mg"
-            },
-            subject: { "reference": "Patient/23129" },
-            taken: "y",
-            dosage: [{
-                text: "twice daily",
-                timing: {
-                    repeat: {
-                        frequency: 2,
-                        period: 1,
-                        periodUnit: "d"
-                    }
-                },
-                doseQuantity: {
-                    value: 1,
-                    unit: "tablet",
-                    system: "http://snomed.info/ct",
-                    code: "428673006"
-                }
-            }]
-        };
-        console.log("need to see this first...");
+
+    async getPatientMedications(patientID) {
+        var results = [];
+
         try {
-            let res = await this.client.create({ type: 'Patient', resource: entry });
-            console.log("are we here?");
-            console.log(res);
+            const res = await this.client.search({ type: 'MedicationStatement', resource:{subject : {reference: 'Patient/'+patientID }}});
+            //var bundle = res.data;
+            
+            //var count = (bundle.entry && bundle.entry.length) || 0;
+            
+            //var count = 1;
+            //console.log(bundle);
+            //var newBundle = this.client.nextPage({bundle:res.data});
+            //console.log(bundle.nextPage);
+            //console.log(bundle._page);
+            //console.log(bundle._count);
+            //console.log(this.client.nextPage( {bundle : res.data}));
+            console.log();
+            //console.log(this.client._page);
+            //console.log(this.client._count);
+            //for (var i = 0; i < count; i++) {
+                //console.log(bundle.entry[i].resource.subject.reference);
+                //results.push(bundle.entry[i]);
+            //}
         } catch (err) {
             errFunc(err);
-        }   
-    }       
+        }
+
+        //cb(results);
+        return results;   
+    }   
 }
 
