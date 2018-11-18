@@ -37,7 +37,6 @@ var providerSchema = new schema({
     verified: Boolean // Has the provider been validated
 });
 
-
 module.exports = class dbutil {
     constructor(dburl) {
         mongoose.connect(dburl);
@@ -45,69 +44,90 @@ module.exports = class dbutil {
         this.providerModel = mongoose.model('providerModel', providerSchema);
     }
 
-    createPatient(info) {
-        var p = new this.patientModel({ userInfo: info });
-        p.save(function (err) { if (err) { console.log(err); throw err; } });
-        return p;
+    async createPatient(info) {
+        return new Promise(
+            async (resolve, reject) => {
+                try {
+                    var p = new this.patientModel({ userInfo: info });
+                    p.save();
+                    resolve(p);
+                }
+                catch (err) {
+                    console.log(err);
+                    reject(err);
+                }
+            });
     }
 
-    createProvider(info) {
-        var p = new this.providerModel({ userInfo: info });
-        p.save(function (err) { if (err) { console.log(err); throw err; } });
-        return p;
+    async createProvider(info) {
+        return new Promise(
+            async (resolve, reject) => {
+                try {
+                    var p = new this.providerModel({ userInfo: info });
+                    p.save();
+                    resolve(p);
+                }
+                catch (err) {
+                    console.log(err);
+                    reject(err);
+                }
+            });
     }
 
-    getAllPatients() {
-        var p = [];
-        this.patientModel.find({}, function (err, res) {
-            p = res;
-        });
-        return p;
+    async getAllPatients() {
+        return new Promise(
+            async (resolve, reject) => {
+                try {
+                    var p = [];
+                    p = await this.patientModel.find({});
+                    resolve(p);
+                }
+                catch (err) {
+                    console.log(err);
+                    reject(err);
+                }
+            });
     }
 
-    getAllPatients(callback) {
-        this.patientModel.find({}, callback);
+    async getAllProviders() {
+        return new Promise(
+            async (resolve, reject) => {
+                try {
+                    var p = await this.providerModel.find({});
+                    resolve(p);
+                }
+                catch (err) {
+                    console.log(err);
+                    reject(err);
+                }
+            });
     }
 
-    getAllProviders() {
-        var p = [];
-        this.providerModel.find({}, function (err, res) {
-            if (err) { console.log(err); }
-            p = res;
-        });
-        return p;
+    async getPatient(id) {
+        return new Promise(
+            async (resolve, reject) => {
+                try {
+                    var p = await this.patientModel.findOne({ 'userInfo.oid': id });
+                    resolve(p);
+                }
+                catch (err) {
+                    console.log(err);
+                    reject(err);
+                }
+            });
     }
 
-    getAllProviders(callback) {
-        this.providerModel.find({}, callback);
+    async getProvider(id) {
+        return new Promise(
+            async (resolve, reject) => {
+                try {
+                    var p = await this.providerModel.findOne({ 'userInfo.oid': id });
+                    resolve(p);
+                }
+                catch (err) {
+                    console.log(err);
+                    reject(err);
+                }
+            });
     }
-
-    getPatient(id) {
-        var p;
-        this.patientModel.findOne({ userInfo: { oid: id } }, function (err, res) {
-            if (err) { console.log(err); }
-            p = res;
-        });
-
-        return p;
-    }
-
-    getPatient(id, callback) {
-        this.patientModel.findOne({ userInfo: { oid: id } }, callback);
-    }
-
-    getProvider(id) {
-        var p;
-        this.providerModel.findOne({ userInfo: { oid: id } }, function (err, res) {
-            if (err) { console.log(err); }
-            p = res;
-        });
-
-        return p;
-    }
-
-    getProvider(id, callback) {
-        this.providerModel.findOne({ userInfo: { oid: id } }, callback);
-    }
-
 };

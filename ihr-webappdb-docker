@@ -1,5 +1,4 @@
 FROM mongo
 RUN mkdir -p /data
-VOLUME /data/db /data/db
 WORKDIR /data
 EXPOSE 27017

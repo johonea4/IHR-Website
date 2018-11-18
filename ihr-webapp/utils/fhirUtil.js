@@ -8,12 +8,12 @@ var mkFhir = require('fhir.js');
 var errFunc = function (res) {
     //Error responses
     if (res.status) {
-        console.log('Error', res.status);
+        console.log('Error Status: ', res.status);
     }
 
     //Errors
     if (res.message) {
-        console.log('Error', res.message);
+        console.log('Error Message: ', res.message);
     }
 }
 
@@ -25,34 +25,38 @@ module.exports = class fhirUtil {
         this.client = mkFhir({ baseUrl: resourceUrl });
     }
 
-    async find(type, query, cb) {
-        var results = [];
-
-        try {
-            const res = await this.client.search({ type: type, query: query });
-            const bundle = res.data;
-            var count = (bundle.entry && bundle.entry.length) || 0;
-            for (var i = 0; i < count; i++) {
-                results.push(bundle.entry[i]);
-            }
-        } catch (err) {
-            errFunc(err);
-        }
-
-        cb(results);
-        return results;
+    async find(type, query) {
+        return new Promise(
+            async (resolve, reject) => {
+                var results = [];
+                try {
+                    const res = await this.client.search({ type: type, query: query });
+                    const bundle = res.data;
+                    var count = (bundle.entry && bundle.entry.length) || 0;
+                    for (var i = 0; i < count; i++) {
+                        results.push(bundle.entry[i]);
+                    }
+                    resolve(results);
+                } catch (err) {
+                    errFunc(err);
+                    reject(err);
+                }
+            });
     }
 
-    async getPatient(pid,cb) {
-        var results = null;
-        try {
-            let res = await this.client.read({ type: 'Patient', id: pid });
-            results = res.data();
-        } catch (err) {
-            errFunc(err);
-        }
-
-        cb(results);
+    async getPatient(pid) {
+        return new Promise(
+            async (resolve, reject) => {
+                var results = null;
+                try {
+                    let res = await this.client.read({ type: 'Patient', id: pid });
+                    results = res.data();
+                    resolve(result);
+                } catch (err) {
+                    errFunc(err);
+                    reject(err);
+                }
+            });
         return results;
     }
     async addPatient() {
