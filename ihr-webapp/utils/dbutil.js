@@ -37,12 +37,17 @@ var providerSchema = new schema({
     verified: Boolean // Has the provider been validated
 });
 
-module.exports = class dbutil {
-    constructor(dburl) {
+var instance;
+
+class dbutil {
+    constructor() {
+    }
+
+    connect(dburl){
         mongoose.connect(dburl);
         this.patientModel = mongoose.model('patientModel', patientSchema);
         this.providerModel = mongoose.model('providerModel', providerSchema);
-    }
+}
 
     async createPatient(info) {
         return new Promise(
@@ -131,3 +136,7 @@ module.exports = class dbutil {
             });
     }
 };
+
+var instance = new dbutil();
+
+module.exports = instance;

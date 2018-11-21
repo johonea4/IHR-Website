@@ -1,22 +1,10 @@
 var express = require('express');
 var router = express.Router();
 
-var fhirUtil = require('../utils/fhirUtil');
-var dbutil = require('../utils/dbutil');
+var fhirtestUtil = require('../utils/fhirUtil');
+var dbTester = require('../utils/dbutil');
 
-var dbAddress = "";
-if (process.env.NODE_ENV == 'production') {
-    dbAddress = 'mongodb://ihr-webapp-db:27017/ihrdata'
-}
-else if (process.env.NODE_ENV == 'docker'){
-    dbAddress = 'mongodb://ihr-webapp-db:27017/ihrdata'
-}
-else {
-    dbAddress = 'mongodb://localhost:27017/ihrdata';
-}
-
-var fhirtestUtil = new fhirUtil("http://hapi.fhir.org/baseDstu3");
-var dbTester = new dbutil(dbAddress);
+fhirtestUtil.connect("http://hapi.fhir.org/baseDstu3");
 
 router.get('/', function (req, res) {
     res.render('UserDataEntry', { formAction: "tester/submit" });

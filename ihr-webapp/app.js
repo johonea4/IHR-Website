@@ -28,6 +28,11 @@ var tester = require('./routes/tester');
 var logout = require('./routes/logout');
 var userdataentry = require('./routes/UserDataEntry');
 
+/******************************************************************************
+ * Our Module utils.
+ *****************************************************************************/
+var dbutil = require('./utils/dbutil');
+
 //-----------------------------------------------------------------------------
 // Config the app, include middlewares
 //-----------------------------------------------------------------------------
@@ -46,10 +51,21 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
+var dbAddress = "";
+if (process.env.NODE_ENV == 'production') {
+    dbAddress = 'mongodb://ihr-webapp-db:27017/ihrdata'
+}
+else if (process.env.NODE_ENV == 'docker'){
+    dbAddress = 'mongodb://ihr-webapp-db:27017/ihrdata'
+}
+else {
+    dbAddress = 'mongodb://localhost:27017/ihrdata';
+}
+
+dbutil.connect(dbAddress);
+
 app.get('/', function (req, res) {
     res.render('index', { user: req.user });
-    //console.log(req.user.sub);
-    //console.log(req.user.oid);
 });
 
 app.use('/login', login.router);

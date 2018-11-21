@@ -111,7 +111,8 @@ router.post('/auth/openid/return',
         )(req, res, next);
     },
     function (req, res) {
+        //---- Save user to database here ---//
         res.redirect('/');
-    });
+   });
 
 exports.router = router;

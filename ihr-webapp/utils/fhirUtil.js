@@ -19,9 +19,17 @@ var errFunc = function (res) {
 /******************************************************************************
  * FHIR class providing main function interfacing with FHIR server.
  *****************************************************************************/
-module.exports = class fhirUtil {
-    constructor(resourceUrl) {
-        this.client = mkFhir({ baseUrl: resourceUrl });
+class fhirUtil {
+    constructor() {
+        this.client = undefined;
+    }
+
+    connect(resourceUrl){
+        if(this.client !== undefined){
+            delete this.client;
+            this.client = undefined;
+        }
+        this.client = mkFhir({baseUrl: resourceUrl});
     }
 
     async find(type, query) {
@@ -146,5 +154,7 @@ module.exports = class fhirUtil {
             errFunc(err);
         }  
     }
-}
+};
 
+var instance = new fhirUtil();
+module.exports = instance;
