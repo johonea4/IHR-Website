@@ -5,6 +5,8 @@ var passport = require('passport');
 var OIDCStrategy = require('passport-azure-ad').OIDCStrategy;
 var config = require('../config');
 
+var dbutil = require('../utils/dbutil')
+
 var users = [];
 
 exports.findByOid = function (oid, fn) {
@@ -112,6 +114,20 @@ router.post('/auth/openid/return',
     },
     function (req, res) {
         //---- Save user to database here ---//
+        dbutil.getPatient(req.user.oid).then(function (rslt) {
+            if (rslt == undefined) {
+                rslt = dbutil.createPatient({
+                    oid: req.user.oid,
+                    name: req.user.displayName,
+                    email: req.user.preferred_username,
+                    isProvider: false
+                });
+            }
+            return rslt;
+        }).then(function (rslt) {
+            var resources = rslt.fhirResources;
+            //--- update data from all resources
+        });
         res.redirect('/');
    });
 

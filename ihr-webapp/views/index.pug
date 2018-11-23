@@ -53,11 +53,9 @@
 
   body
     div.container-fluid
-      <!--div.jumbotron-->
-        <!--h1 Welcome to the IHR Prototype App!-->
-        div.verticalhorizontal
-          <img src="images/ihranywhere.png" alt="app logo" width="190" height="200">
-
+      <!--h1 Welcome to the IHR Prototype App!-->
+      div.verticalhorizontal
+        <img src="images/ihranywhere.png" alt="app logo" width="190" height="200">
         if user
           p Welcome, #{user.displayName}
           p
@@ -70,10 +68,9 @@
           div.part3
             a.big(href="UserDataEntry") Add A Resource
           p
-          div.bottomright
+          div.bottom
             form(action='/logout', method='POST' )
               button.btn.btn-default(type="submit" ) Logout
         else
-          <!--p Welcome to my app, ready to get started?-->
-          div.topcorner  
-            a.btn.btn-light(href="/login" border-color="blue") Login now
+          div.bottom
+            a.btn.btn-default(href="/login" border-color="blue") Login now
