@@ -1,0 +1,17 @@
+= Special Instruction
+Individual-Health-Record _Team Awesome_
+Fall 2018 CS6440
+
+== Steps
+
+1. go to top level directory of the repository pulled from team repo. +
+https://github.gatech.edu/gt-cs6440-hit-fall2018/Individual-Health-Record-IHR-Prototype 
+
++
+2. run "_docker-compose build_"
+
++
+3. run "_docker-compose up_"
+
++
+The database container and the main web app container will be built and started
