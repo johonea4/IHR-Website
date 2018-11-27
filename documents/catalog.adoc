@@ -1,0 +1,148 @@
+= Catalog
+Individual-Health-Record _Team Awesome_
+Fall 2018 CS6440
+:toc:
+== Cover Page
+
+Team Awesome +
+
+
+.IHR
+****
+*Individual Health Record*
+****
+
+Github Link +
+https://github.gatech.edu/gt-cs6440-hit-fall2018/Individual-Health-Record-IHR-Prototype 
+
+.Team Members
+|===
+|Name |Role
+
+|Joseph Honea
+|Developer, QA
+
+|Eric I-Hsin
+|QA, Developer
+
+|Dionisios Gizas
+|Developer, PM
+
+|Emma Yuhan Zhang
+|PM, Analyst, QA
+|===
+<<<
+== Project Individual-Health-Record-IHR-Prototype
+===ihr-webapp
+
+<<<
+
+==== node_modules
+
+<<<
+
+==== public
+
+===== images
+
+===== js
+
+====== chartCreator
+
+====== listCreator
+<<<
+==== routes
+
+===== dashboard
+javaScript File
+
+===== history
+javaScript File
+
+===== login
+javaScript File
+
+===== logout
+javaScript File
+
+===== tester
+javaScript File
+
+===== UserDataEntry
+javaScript File
+
+<<<
+
+==== utils
+
+===== dbutil
+javaScript File
+
+===== fhirUtil
+javaScript File
+
+<<<
+
+==== views
+
+===== dashboard.pug
+pug file
+
+===== history.pug
+pug file
+
+===== index.pug
+pug file
+
+===== login.pug
+pug file
+
+===== UserDataEntry.pug
+pug file
+
+<<<
+
+==== app.js
+
+
+==== config.js
+
+==== ihr-webapp.njsproj
+
+==== package
+
+==== package-lock
+
+==== README
+<<<
+
+=== .dockerignore
+
+=== docker-compose.yml
+
+=== ihr-webapp.sln
+
+=== ihr-webappdb-docker
+
+=== ihr-webapp-docker
+
+=== Jenkinsfile
+
+=== package-lock
+
+=== README
+<<<
+
+=== documents
+
+==== catalog.adoc
+
+==== Manual-Team-Awesome.adoc
+
+==== Special-Instructions-Team-Awesome.adoc
+
+<<<
+
+=== Reasearch
+
+<<<
