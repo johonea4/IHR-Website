@@ -1,5 +1,6 @@
 ﻿var mongoose = require('mongoose');
 var schema = mongoose.Schema;
+var fhirutil = require('./fhirUtil');
 
 var userSchema = new schema({
     oid: { type: String, required: true, unique: true }, //Provided by Azure AD
@@ -19,12 +20,13 @@ var patientSchema = new schema({
         resourceUrl: String, // fhir resource url, or MANUAL for manual entries or PROVIDER for provider entries
         resourceId: String, // Resource Id from fhir resource. null if manual or provider 
         name: String, // Name of medication
-        startDate: Date, // Start date of medication
-        endDate: Date, // End date of medication
+        instructions: String,
         frequency: Number, // How many times per day should it be taken
-        quantity: Number, // How much should be taken per dosage
-        units: String, // Units for dosage 
-        isOpioid: Boolean // Boolean to set if medication is an opioid. Need to place Addiction warning around these
+        period: Number,
+        periodUnit: String,
+        doseQuantity: Number, // How much should be taken per dosage
+        doseUnits: String, // Units for dosage 
+        asNeeded: Boolean // Boolean to set if medication is on as needed basis
     }],
     allowedProviders: [{
         oid: String,
@@ -134,6 +136,33 @@ class dbutil {
                     reject(err);
                 }
             });
+    }
+
+    async updateResources(id) {
+        var patient = await this.getPatient(id);
+        var resources = patient.fhirResources;
+        patient.medications.length = 0;
+
+        for (var i = 0; i < resources.length; i++) {
+            await fhirutil.connect(resources[i].url);
+            var records = await fhirutil.getPatientMedications(resources[i].patientId);
+
+            for (var j = 0; j < records.length; j++) {
+                patient.medications.push({
+                    resourceUrl: records[j].fullUrl,
+                    resourceId: records[j].resource.id,
+                    name: records[j].text.div,
+                    instructions: records[j].dosage[0].text,
+                    frequency: records[j].dosage[0].timing.frequency,
+                    period: records[j].dosage[0].timing.period,
+                    periodUnit: records[j].dosage[0].timimg.periodUnit,
+                    doseQuantity: records[j].dosage[0].doseQuantity.value,
+                    doseUnits: records[j].dosage[0].doseQuantity.unit,
+                    asNeeded: records[j].dosage[0].asNeededBoolean
+                });
+            }
+        }
+        patient.save();
     }
 };
 

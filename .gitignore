@@ -1,2 +1,4 @@
 ihr-webapp/node_modules/
 .vs/
+ihr-webapp/bin/
+ihr-webapp/obj/

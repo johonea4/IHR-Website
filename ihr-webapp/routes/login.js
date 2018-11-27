@@ -125,8 +125,8 @@ router.post('/auth/openid/return',
             }
             return rslt;
         }).then(function (rslt) {
-            var resources = rslt.fhirResources;
             //--- update data from all resources
+            dbutil.updateResources(rslt.userInfo.oid);
         });
         res.redirect('/');
    });
