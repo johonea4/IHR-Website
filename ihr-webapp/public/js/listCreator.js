@@ -1,14 +1,14 @@
 'use-strict';
 
-function fetchHistory()
+function fetchHistory(dataObj)
 {
     //TODO implement
-    return null;
+    //need ot build out query
+    //DO HTTP GET request to get data
 }
 
 function createButton(buttonTitle, divID)
-{
-    
+{    
     var list = document.getElementById('historyList');
     var newButton = document.createElement('button');
     newButton.setAttribute('id', divID + '_button');
@@ -46,10 +46,14 @@ function populateInfo(divID, data)
     list.appendChild(br);
 }
 
-function createList()
+function createList(userData)
 {
-    //fetch data
-    //var history = fetchHistory();
+    userData = cleanData(userData);
+    
+    console.log(userData);
+    var meds = JSON.parse(userData);
+    //console.log(meds.resource.medicationCodeableConcept.coding[0].system);
+    
     for (let index = 0; index < 10; index++) 
     {
         //create button
@@ -61,4 +65,11 @@ function createList()
         populateInfo(name, 'b');
         
     }
+}
+
+function cleanData(dirtyData)
+{
+    dirtyData = dirtyData.replace(new RegExp('&quot;', 'g'), '\"');
+    dirtyData = dirtyData.substring(1, dirtyData.length - 1);
+    return dirtyData;
 }

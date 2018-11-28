@@ -11,7 +11,11 @@ html
       div.jumbotron
         h1 Welcome to your history
     .container(id='historyList')
-      script(type='text/javascript').
-        createList();
+      if userData != false      
+        p #{userData}
+        script(type='text/javascript').
+          createList('#{userData}');
+      else
+        h2 User Data Found: #{userData}
       
       
