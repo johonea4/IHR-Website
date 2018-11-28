@@ -12,24 +12,26 @@ router.get('/', function (req, res) {
 router.post('/submit', function (req, res) {
     console.log('UserDataEntry /submit');
     var qry = {
-        given: req.body.firstname,
-        family: req.body.lastname,
-        gender: req.body.gender,
+        given: req.body.firstname.toLowerCase(),
+        family: req.body.lastname.toLowerCase(),
+        gender: req.body.gender.toLowerCase(),
         birthdate: req.body.dob,
     }
 
     fhirutil.connect(req.body.fhirserver);
     fhirutil.find('Patient', qry).then(function (rslt) {
         if (rslt.length > 0) {
-            dbutil.getPatient(req.user.oid).then(function (p) {
+            dbutil.getPatient(req.user.oid).then(async function (p) {
                 p.fhirResources.push({
                     url: req.body.fhirserver,
-                    patientId: rslt.resource.id,
+                    patientId: rslt[0].resource.id,
                     validated: true
-                })
-            })
+                });
+                await p.save();
+                dbutil.updateResources(p.userInfo.oid);
+            });
         }
-    })
+    });
 });
 
 exports.router = router;
