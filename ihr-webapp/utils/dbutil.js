@@ -149,20 +149,20 @@ class dbutil {
 
             for (var j = 0; j < records.length; j++) {
                 patient.medications.push({
-                    resourceUrl: records[j].fullUrl,
-                    resourceId: records[j].resource.id,
-                    name: records[j].text.div,
-                    instructions: records[j].dosage[0].text,
-                    frequency: records[j].dosage[0].timing.frequency,
-                    period: records[j].dosage[0].timing.period,
-                    periodUnit: records[j].dosage[0].timimg.periodUnit,
-                    doseQuantity: records[j].dosage[0].doseQuantity.value,
-                    doseUnits: records[j].dosage[0].doseQuantity.unit,
-                    asNeeded: records[j].dosage[0].asNeededBoolean
+                    resourceUrl: (records[j].fullUrl || ""),
+                    resourceId: (records[j].resource.id || ""),
+                    name: (records[j].resource.text.div || ""),
+                    instructions: (records[j].resource.dosage[0].text || ""),
+                    frequency: (records[j].resource.dosage[0].timing.repeat.frequency || 0),
+                    period: (records[j].resource.dosage[0].timing.repeat.period || 0),
+                    periodUnit: (records[j].resource.dosage[0].timing.repeat.periodUnit || ""),
+                    doseQuantity: (records[j].resource.dosage[0].doseQuantity.value || 0),
+                    doseUnits: (records[j].resource.dosage[0].doseQuantity.unit || ""),
+                    asNeeded: (records[j].resource.dosage[0].asNeededBoolean || false)
                 });
             }
         }
-        patient.save();
+        await patient.save();
     }
 };
 
