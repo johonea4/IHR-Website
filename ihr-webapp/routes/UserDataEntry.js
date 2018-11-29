@@ -28,7 +28,7 @@ router.post('/submit', function (req, res) {
                     validated: true
                 });
                 await p.save();
-                dbutil.updateResources(p.userInfo.oid);
+                await dbutil.updateResources(p.userInfo.oid);
             });
         }
     });

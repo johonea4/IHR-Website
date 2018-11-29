@@ -11,8 +11,7 @@ html
       div.jumbotron
         h1 Welcome to your history
     .container(id='historyList')
-      if userData != false      
-        p #{userData}
+      if userData != false              
         script(type='text/javascript').
           createList('#{userData}');
       else

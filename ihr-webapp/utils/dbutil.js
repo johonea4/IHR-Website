@@ -146,8 +146,8 @@ class dbutil {
         for (var i = 0; i < resources.length; i++) {
             await fhirutil.connect(resources[i].url);
             var records = await fhirutil.getPatientMedications(resources[i].patientId);
-
-            for (var j = 0; j < records.length; j++) {
+            //console.log("RECORDS: " + JSON.stringify(records));
+            for (var j = 0; j < 12/*records.length*/; j++) {
                 patient.medications.push({
                     resourceUrl: (records[j].fullUrl || ""),
                     resourceId: (records[j].resource.id || ""),

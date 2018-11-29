@@ -14,7 +14,7 @@ function createButton(buttonTitle, divID)
     newButton.setAttribute('id', divID + '_button');
     newButton.setAttribute('class', 'btn btn-info');
     newButton.setAttribute('data-toggle', 'collapse');
-    newButton.setAttribute('data-target', '#'+divID);
+    newButton.setAttribute('data-target', '#' + divID);
     newButton.innerHTML = buttonTitle;  //this will most likely be the date
     list.appendChild(newButton);
 }
@@ -34,10 +34,13 @@ function populateInfo(divID, data)
 
     //add the content to the body
     var paragraph = document.createElement('p');
-    paragraph.innerHTML = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+    paragraph.innerHTML = "Instructions: " + data.instructions;
     body.appendChild(paragraph);
-    
-    //TODO create all the content for the body
+
+    //TODO add dosage?
+    var dosage = document.createElement('p');
+    dosage.innerHTML = "Dosage: " + GetCleanTitle(data.name).split(/ {1}/)[1];
+    body.appendChild(dosage);
 
     //add the new div to the list container
     list.appendChild(newDiv);
@@ -53,18 +56,32 @@ function createList(userData)
     console.log("data: " + userData);
     var meds = JSON.parse(userData);
     //console.log(meds.resource.medicationCodeableConcept.coding[0].system);
-    
-    for (let index = 0; index < 10; index++) 
+    console.log(meds.medications.length);
+    console.log(meds.medications[0].name)
+    for (let index = 0; index < meds.medications.length; index++) 
     {
         //create button
         var title, name;
-        title = "Data ";
+        title = GetCleanTitle(meds.medications[index].name);
+        console.log(title);
+        title = title.split(/( \d)/);
+        //console.log("-----------");
+        //for(let i = 0; i < title.length; i++)
+            //console.log(title[i]);
+        //console.log("-----------");
         name = "testID";
-        createButton(title + index, name);
+        createButton(title[0].toUpperCase(), name + index);
         //create collapsed element
-        populateInfo(name, 'b');
-        
+        populateInfo(name + index, meds.medications[index]);        
     }
+}
+
+function GetCleanTitle(dirtyData)
+{
+    var a, b;
+    a = dirtyData.indexOf('>') + 1;
+    b = dirtyData.lastIndexOf('<');
+    return dirtyData.substring(a,b);
 }
 
 function cleanData(dirtyData)
@@ -74,7 +91,5 @@ function cleanData(dirtyData)
     dirtyData = dirtyData.replace(new RegExp('&gt;', 'g'), '>');
     dirtyData = dirtyData.replace(new RegExp('xmlns="', 'g'), 'xmlns=\\"');
     dirtyData = dirtyData.replace(new RegExp('xhtml"', 'g'), 'xhtml\\"');
-    
-    //dirtyData = dirtyData.substring(1, dirtyData.length - 1);
     return dirtyData;
 }
