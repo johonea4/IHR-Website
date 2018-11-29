@@ -70,6 +70,11 @@ function createList(userData)
 function cleanData(dirtyData)
 {
     dirtyData = dirtyData.replace(new RegExp('&quot;', 'g'), '\"');
-    dirtyData = dirtyData.substring(1, dirtyData.length - 1);
+    dirtyData = dirtyData.replace(new RegExp('&lt;', 'g'), '<');
+    dirtyData = dirtyData.replace(new RegExp('&gt;', 'g'), '>');
+    dirtyData = dirtyData.replace(new RegExp('xmlns="', 'g'), 'xmlns=\\"');
+    dirtyData = dirtyData.replace(new RegExp('xhtml"', 'g'), 'xhtml\\"');
+    
+    //dirtyData = dirtyData.substring(1, dirtyData.length - 1);
     return dirtyData;
 }
