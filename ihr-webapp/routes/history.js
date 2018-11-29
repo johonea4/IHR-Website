@@ -45,10 +45,29 @@ async function FetchPatient(req, res)
 
     await fhirUtil.getPatientMedications(id).then(function(meds)
     {
-        var medData = JSON.stringify(meds[0], 'id', 1);
-        console.log("meds: " + medData);
+        console.log("len: " + meds.length);
+        //console.log(meds);
+        
+        var medData = "";
+        console.log(medData);
+        //meds.foreach(row => medData += JSON.stringify(row.data) + "\n");
+        for(var i = 0; i < meds.length - 1; i++)
+        {
+            
+            medData += JSON.stringify(meds[i], null, 1) + "\n";
+            //if(i != meds.length - 2)
+            //    medData += "\n";
+            //console.log(i + ": " + JSON.stringify(meds[i], null, 1));
+            //console.log("------------------------");
+        }
+        //var medData = JSON.stringify(meds[0], 'id', 1);
+        //console.log("meds: " + medData);
         medData = JSON.stringify(medData).replace("\n", " ");
+        medData = medData.substr(0, medData.length - 1);
         res.render('history', { user: req.user, userData: medData });
+    }).catch((error) => 
+    {
+        console.log(error);
     });
 }
 

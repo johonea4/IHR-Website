@@ -50,7 +50,7 @@ function createList(userData)
 {
     userData = cleanData(userData);
     
-    console.log(userData);
+    console.log("data: " + userData);
     var meds = JSON.parse(userData);
     //console.log(meds.resource.medicationCodeableConcept.coding[0].system);
     
