@@ -1,30 +1,33 @@
 'use-strict';
 
-function buildDataModel()
+function createChart(context, chartType, data, chartTitle = 'My Chart')
 {
-    return [12, 19, 3, 5, 2, 3];    //TODO replace with actual data
-}
+    data = cleanData(data);
+    var cleandata = JSON.parse(data);
+    console.log(cleandata.medications.length);
+    var labels = buildDataLabels();
+    var model = buildDataModel();
+    var options = buildDataOptions();
+    switch(chartType)
+    {
+        case 'bar':
+        break;
+        case 'line':
+        break;
+        case 'doughnut':
+            labels = buildDoughnutLabels(cleandata.medications);
+            model = buildDoughnutModel(cleandata.medications);
+            options = buildDataOptions();
+        break;
+    }
 
-function buildDataLabels()
-{
-    //TODO replace with actual labels
-    return ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
-}
-
-function buildDataOptions()
-{
-    return {scales: { yAxes: [{ ticks: { beginAtZero:true }}]}};
-}
-
-function createChart(context, chartType, chartTitle = 'My Chart')
-{
     var myChart = new Chart(context, {
         type: chartType,
         data: {
-            labels: buildDataLabels(),
+            labels: labels,
             datasets: [{
                 label: chartTitle,
-                data: buildDataModel(),
+                data: model,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -44,6 +47,66 @@ function createChart(context, chartType, chartTitle = 'My Chart')
                 borderWidth: 1
             }]
         },
-        options: buildDataOptions()
+        options: options
     });
 }
+
+function buildDataModel()
+{
+    return [12, 19, 3, 5, 2, 3];    //TODO replace with actual data
+}
+
+function buildDataLabels()
+{
+    //TODO replace with actual labels
+    return ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
+}
+
+function buildDataOptions()
+{
+    return {scales: { yAxes: [{ ticks: { beginAtZero:true }}]}};
+}
+
+function buildDoughnutModel(data)
+{
+
+}
+
+function buildDoughnutLabels(data)
+{
+    return extractNames(data);
+}
+
+function extractNames(data)
+{
+    var names = [];
+    var name;
+    for(let index = 0; index < data.length; index++)
+    {
+        name = GetCleanTitle(data[index].name);
+        name = name.split(/( \d)/)[0];        
+        
+        name = name.charAt(0).toUpperCase() + name.slice(1);
+        names.push(name);
+    }
+    return names;
+}
+
+function GetCleanTitle(dirtyData)
+{
+    var a, b;
+    a = dirtyData.indexOf('>') + 1;
+    b = dirtyData.lastIndexOf('<');
+    return dirtyData.substring(a,b);
+}
+
+function cleanData(dirtyData)
+{
+    dirtyData = dirtyData.replace(new RegExp('&quot;', 'g'), '\"');
+    dirtyData = dirtyData.replace(new RegExp('&lt;', 'g'), '<');
+    dirtyData = dirtyData.replace(new RegExp('&gt;', 'g'), '>');
+    dirtyData = dirtyData.replace(new RegExp('xmlns="', 'g'), 'xmlns=\\"');
+    dirtyData = dirtyData.replace(new RegExp('xhtml"', 'g'), 'xhtml\\"');
+    return dirtyData;
+}
+
