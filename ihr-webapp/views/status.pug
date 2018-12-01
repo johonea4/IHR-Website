@@ -55,8 +55,14 @@ html
     div.container-fluid
       div.verticalhorizontal
         if processing
-            <img src="images/PILLS.png" alt="processing img" width="190" height="200">
+            img(src="/images/spinning.gif" alt="processing img")
+            script.
+                setInterval(function () { location.replace(window.location.pathname); }, 1000);
         else if success
-            <img src="images/spinning.gif" alt="success img" width="190" height="200">
+            img(src="/images/ihranywhere.png" alt="success img")
+            script.
+                setInterval(function () { location.replace(window.location.pathname); }, 3000);
         else if failure
-            <img src="images/whoops.jpg" alt="failure  img" width="190" height="200">
+            img(src="/images/whoops.jpg" alt="failure  img")
+            script.
+                setInterval(function () { location.replace(window.location.pathname); }, 3000);

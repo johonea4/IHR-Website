@@ -148,18 +148,23 @@ class dbutil {
             var records = await fhirutil.getPatientMedications(resources[i].patientId);
             //console.log("RECORDS: " + JSON.stringify(records));
             for (var j = 0; j < 12/*records.length*/; j++) {
-                patient.medications.push({
-                    resourceUrl: (records[j].fullUrl || ""),
-                    resourceId: (records[j].resource.id || ""),
-                    name: (records[j].resource.text.div || ""),
-                    instructions: (records[j].resource.dosage[0].text || ""),
-                    frequency: (records[j].resource.dosage[0].timing.repeat.frequency || 0),
-                    period: (records[j].resource.dosage[0].timing.repeat.period || 0),
-                    periodUnit: (records[j].resource.dosage[0].timing.repeat.periodUnit || ""),
-                    doseQuantity: (records[j].resource.dosage[0].doseQuantity.value || 0),
-                    doseUnits: (records[j].resource.dosage[0].doseQuantity.unit || ""),
-                    asNeeded: (records[j].resource.dosage[0].asNeededBoolean || false)
-                });
+                try {
+                    patient.medications.push({
+                        resourceUrl: (records[j].fullUrl || ""),
+                        resourceId: (records[j].resource.id || ""),
+                        name: (records[j].resource.text.div || ""),
+                        instructions: (records[j].resource.dosage[0].text || ""),
+                        frequency: (records[j].resource.dosage[0].timing.repeat.frequency || 0),
+                        period: (records[j].resource.dosage[0].timing.repeat.period || 0),
+                        periodUnit: (records[j].resource.dosage[0].timing.repeat.periodUnit || ""),
+                        doseQuantity: (records[j].resource.dosage[0].doseQuantity.value || 0),
+                        doseUnits: (records[j].resource.dosage[0].doseQuantity.unit || ""),
+                        asNeeded: (records[j].resource.dosage[0].asNeededBoolean || false)
+                    });
+                }
+                catch (err) {
+                    console.log("Medication statement invalid to expected format: " + records[j]);
+                }
             }
         }
         await patient.save();

@@ -52,8 +52,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Content Include="package.json" />
+    <Content Include="public\images\checked.jpg" />
+    <Content Include="public\images\dashboard.png" />
+    <Content Include="public\images\dashboard2.png" />
+    <Content Include="public\images\History.png" />
     <Content Include="public\images\ihranywhere.png" />
     <Content Include="public\images\PILLS.png" />
+    <Content Include="public\images\spinning.gif" />
+    <Content Include="public\images\whoops.jpg" />
     <Content Include="README.md" />
     <Content Include="views\dashboard.pug">
       <SubType>Code</SubType>
@@ -65,6 +71,7 @@
       <SubType>Code</SubType>
     </Content>
     <Content Include="views\login.pug" />
+    <Content Include="views\status.pug" />
     <Content Include="views\UserDataEntry.pug" />
   </ItemGroup>
   <ItemGroup>
