@@ -24,6 +24,8 @@ html
     div.charts(style="width: 30%;")
       canvas(name='chartA' id='chartA' width=400 height=400)
       canvas(name='chartB' id='chartB' width=400 heigh=400)
+      canvas(name='chartC' id='chartC' width=400 heigh=400)
       script(type='text/javascript').
-        createChart(document.getElementById('chartA').getContext('2d'), 'bar');
-        createChart(document.getElementById('chartB').getContext('2d'), 'line');
+        createChart(document.getElementById('chartA').getContext('2d'), 'bar', '#{chartData}');
+        createChart(document.getElementById('chartB').getContext('2d'), 'line', '#{chartData}');
+        createChart(document.getElementById('chartC').getContext('2d'), 'doughnut', '#{chartData}');
