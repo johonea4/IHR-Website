@@ -74,19 +74,19 @@ function buildDoughnutModel(data)
 
 function buildDoughnutLabels(data)
 {
-    console.log(data.medications.length);
+    console.log(data.length);
     return extractNames(data);
 }
 
 function extractNames(data)
 {
-    console.log("DATA: " + data.id);
+    console.log("DATA: " + data.length);
     var names;
     var name;
-    for(let index = 0; index < data.medications.length; index++)
+    for(let index = 0; index < data.length; index++)
     {
-        name = GetCleanTitle(data.medications[index].name);
-        name = name.split(/( \d)/);
+        name = GetCleanTitle(data[index].name);
+        name = name.split(/( \d)/)[0];        
         name = name.charAt(0).toUpperCase() + name.slice(1);
         names[index] = name;
     }
