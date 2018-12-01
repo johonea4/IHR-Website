@@ -32,117 +32,204 @@ https://github.gatech.edu/gt-cs6440-hit-fall2018/Individual-Health-Record-IHR-Pr
 |PM, Analyst, QA
 |===
 <<<
-== Project Individual-Health-Record-IHR-Prototype
-===ihr-webapp
+== Project Structure
+* ihr-webapp
+** node_modules
+
+** public
+
+*** images  
+
+*** js		
+**** chartCreator.js
+**** listCreator.js
+
+
+** routes
+*** dashboard.js
+*** history.js
+*** login.js
+*** logout.js
+*** tester.js
+*** UserDataEntry.js
+
+
+** utils
+*** dbutil.js
+*** fhirUtil.js
+
+
+** views
+*** dashboard.pug
+*** history.pug
+*** index.pug
+*** login.pug
+*** UserDataEntry.pug
+
+
+** app.js
+** config.js
+** ihr-webapp.njsproj
+** package JSON
+** package-lock JSON
+** README.txt
+
+* Reasearch
+
+* Document
+
+* .dockerignore
+
+* docker-compose.yml
+
+* ihr-webapp.sln
+
+* ihr-webappdb-docker
+
+* ihr-webapp-docker
+
+* Jenkinsfile
+
+* package-lock
+
+* README
+
+.Project Structure
+image::projectINVS.png[Visual Studio Proejct Screenshot]
 
 <<<
+== Elements
+
+=== ihr-webapp
 
 ==== node_modules
+Local install puts package and dependency in this folder
 
-<<<
+****
+****
 
 ==== public
 
-===== images
+===== images  
+folder for images used in website
 
-===== js
+===== js		
 
-====== chartCreator
+====== chartCreator.js
+javascript for create chart to display user health information
 
-====== listCreator
-<<<
+====== listCreator.js
+javascript for create list to display user health information
+
+****
+****
+
 ==== routes
+folder for javascript files used for each webpage
 
-===== dashboard
-javaScript File
+===== dashboard.js
+javascript for dashboard webpage
 
-===== history
-javaScript File
+===== history.js
+javascript for history webpage
 
-===== login
-javaScript File
+===== login.js
+javascript for login webpage
 
-===== logout
-javaScript File
+===== logout.js
+javascript for logout webpage
 
-===== tester
-javaScript File
+===== tester.js
+javascript for tester webpage
 
-===== UserDataEntry
-javaScript File
+===== UserDataEntry.js
+javascript for user data entry webpage
 
-<<<
+****
+****
 
 ==== utils
+folder for javascript contains database utility
 
-===== dbutil
-javaScript File
+===== dbutil.js
+javascript for database webpage
 
-===== fhirUtil
-javaScript File
+===== fhirUtil.js
+javascript for FHIR server webpage
 
-<<<
+****
+****
 
 ==== views
+folder for pug files 
 
 ===== dashboard.pug
-pug file
+pug file for dashboard page
 
 ===== history.pug
-pug file
+pug file for history page
 
 ===== index.pug
-pug file
+pug file for index page
 
 ===== login.pug
-pug file
+pug file for login page
 
 ===== UserDataEntry.pug
-pug file
+pug file for UserDataEntry page
 
 <<<
 
 ==== app.js
-
+javascript to run the app
 
 ==== config.js
+javascript for some configuration
 
 ==== ihr-webapp.njsproj
+njsproj file that run VS up with additional help that’s specific to Node.js
 
-==== package
+==== package JSON
+JSON file for package 
 
-==== package-lock
+==== package-lock JSON
+JSON file for package dependency
 
-==== README
-<<<
+==== README.txt
+readme file automatically generated
 
-=== .dockerignore
-
-=== docker-compose.yml
-
-=== ihr-webapp.sln
-
-=== ihr-webappdb-docker
-
-=== ihr-webapp-docker
-
-=== Jenkinsfile
-
-=== package-lock
-
-=== README
-<<<
-
-=== documents
-
-==== catalog.adoc
-
-==== Manual-Team-Awesome.adoc
-
-==== Special-Instructions-Team-Awesome.adoc
-
-<<<
 
 === Reasearch
+folder that keep all the past research done for the project
 
+
+=== Document
+folder that keep all the adoc files and pdf based on adoc files
+
+
+=== .dockerignore
+file to list files and directories to exclude
+
+=== docker-compose.yml
+config file for docker-compose. +
+It allows to deploy, combine and configure multiple docker-container at the same time
+
+=== ihr-webapp.sln
+structure file used for organizing projects in Microsoft Visual Studio
+
+=== ihr-webappdb-docker
+docker file for database
+
+=== ihr-webapp-docker
+docker file
+
+=== Jenkinsfile
+File that helps to automate the non-human part of the software development process, +
+with continuous integration and facilitating technical aspects of continuous delivery
+
+=== package-lock
+lock version
+
+=== README
+readme file automatically generated
 <<<

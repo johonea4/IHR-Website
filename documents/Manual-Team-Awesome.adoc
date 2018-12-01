@@ -1,1 +1,103 @@
-=spring
+= Manual
+Individual-Health-Record _Team Awesome_
+Fall 2018 CS6440
+:toc:
+== Cover Page
+
+
+.IHR
+****
+
+*Individual Health Record*
+
+****
+
+
+
+
+image::ihranywhere.jpg[Logo,200,200,float="right",align="center"]
+
+
+
+.Website
+----
+
+https://cs6440-f18-prj11.apps.hdap.gatech.edu/
+
+----
+
+
+
+* Team Awesome 
+
+** _Joseph Honea_
+
+** _Eric I-Hsin_
+
+** _Dionisios Gizas_
+
+** _Emma Yuhan Zhang_ 
++
+
+
+footnote:[This Manual is for website end user. For matainance and development please see special instruction]
+
+
+<<<
+== Login Page
+_IHR will provide one stop shop for patient to get their medical information from anywhere._ +
+_IHR also protect health informtion privacy._ +
+
+.loginpage
+image::loginpage.png[Login Page]
+
+
+click the login button, the user will be prompted to input their credentials. 
+
+<<<
+
+== OAuth login
+_We choose OAuth because it provides users security, also it is convenient for the users to avoid extra memorization effort_
+
+.OAuth First time
+image::OAuth1st.png[OAuth first time]
+
+The user put their email and password to login. +
+Currently we are using Microsoft, future the website can add other OAuth like Google, Facebook etc.
+
+<<<
+
+== Main Page
+_After login, the user is directed to the main page. Here the user will have different areas to explore_ 
+
+.mainpage
+image::mainpage.png[main page]
+
+<<<
+
+== Dashboard
+_Dashboard is the place to provide users graphic visualtion of their health status_ +
+_For example, the blood pressure level with time, the volume of the medicine taken_  
+
+.Dashboard
+image::dashboard.png[Dashboard]
+
+<<<
+
+== History
+_History is the resource with condensed historic health information_
+  
+
+.History
+image::history.png[History]
+
+<<<
+
+== UserDataEntry
+_The page of user data entry provide a portal for users to sending the indentifying information_ +
+
+.UserDataEntry
+image::UserDataEntry.png[User Data Entry]
+
+Using that information, through authenticifaction, health information in the EHR server is extracted to local database +
+After that the user could see the display of their health information in various ways
