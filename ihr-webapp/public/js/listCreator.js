@@ -1,12 +1,5 @@
 'use-strict';
 
-function fetchHistory(dataObj)
-{
-    //TODO implement
-    //need ot build out query
-    //DO HTTP GET request to get data
-}
-
 function createButton(buttonTitle, divID)
 {    
     var list = document.getElementById('historyList');
@@ -37,10 +30,28 @@ function populateInfo(divID, data)
     paragraph.innerHTML = "Instructions: " + data.instructions;
     body.appendChild(paragraph);
 
-    //TODO add dosage?
     var dosage = document.createElement('p');
     dosage.innerHTML = "Dosage: " + GetCleanTitle(data.name).split(/ {1}/)[1];
     body.appendChild(dosage);
+
+    var quantity = document.createElement('p');
+    quantity.innerHTML = "Quantity: " + data.doseQuantity;
+    body.appendChild(quantity);
+    
+    var doseunit = document.createElement('p');
+    var dose = data.doseUnits;
+    dose = dose.charAt(0).toUpperCase() + dose.slice(1);
+    doseunit.innerHTML = "Unit: " + dose;
+    body.appendChild(doseunit);
+
+    var takeAsNeeded = document.createElement('p');
+    var take;
+    if(data.asNeeded == true)
+        take = "Take this as needed.";
+    else
+        take = "Take this as perscribed.";
+    takeAsNeeded.innerHTML = take;
+    body.appendChild(takeAsNeeded);
 
     //add the new div to the list container
     list.appendChild(newDiv);
@@ -53,29 +64,23 @@ function createList(userData)
 {
     userData = cleanData(userData);
     
-    console.log("data: " + userData);
     var meds = JSON.parse(userData);
-    //console.log(meds.resource.medicationCodeableConcept.coding[0].system);
-    console.log(meds.medications.length);
-    console.log(meds.medications[0].name)
+
     for (let index = 0; index < meds.medications.length; index++) 
     {
-        //create button
+        //do a little bit of data work
         var title, name;
         title = GetCleanTitle(meds.medications[index].name);
-        console.log(title);
+        
         title = title.split(/( \d)/);
-        //console.log("-----------");
-        //for(let i = 0; i < title.length; i++)
-            //console.log(title[i]);
-        //console.log("-----------");
         name = "testID";
-        createButton(title[0].toUpperCase(), name + index);
-        //create collapsed element
-        populateInfo(name + index, meds.medications[index]);        
+
+        createButton(title[0].toUpperCase(), name + index); //create button
+        populateInfo(name + index, meds.medications[index]); //create collapsed element
     }
 }
 
+//Cleans out the title from the html div tags
 function GetCleanTitle(dirtyData)
 {
     var a, b;
