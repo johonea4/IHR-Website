@@ -56,9 +56,13 @@ html
       div.verticalhorizontal
         if processing
             img(src="/images/spinning.gif" alt="processing img")
+            script.
+                setInterval(function () { location.replace(window.location.pathname); }, 1000);
         else if success
             img(src="/images/ihranywhere.png" alt="success img")
+            script.
+                setInterval(function () { location.replace(window.location.pathname); }, 3000);
         else if failure
             img(src="/images/whoops.jpg" alt="failure  img")
-        script.
-            setInterval(function () { location.replace(window.location.pathname); }, 1000);
+            script.
+                setInterval(function () { location.replace(window.location.pathname); }, 3000);
