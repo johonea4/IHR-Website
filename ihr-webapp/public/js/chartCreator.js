@@ -4,10 +4,13 @@ function createChart(context, chartType, data, chartTitle = 'My Chart')
 {
     data = cleanData(data);
     var cleandata = JSON.parse(data);
-    console.log(cleandata.medications.length);
-    var labels = buildDataLabels();
-    var model = buildDataModel();
-    var options = buildDataOptions();
+    //console.logconsole.logconsole.log(cleandata.medications.length);
+    var labels = buildDataLabels();  //label names 
+    var model = buildDataModel();    //numerical values on y axis
+    var options = buildDataOptions();//need to ask...
+    var colors;
+    var backgroundColor;
+    var borderColor;
     switch(chartType)
     {
         case 'bar':
@@ -17,7 +20,22 @@ function createChart(context, chartType, data, chartTitle = 'My Chart')
         case 'doughnut':
             labels = buildDoughnutLabels(cleandata.medications);
             model = buildDoughnutModel(cleandata.medications);
-            options = buildDataOptions();
+            //options = Chart.defaults.doughnut;//buildDataOptions();
+            colors = dynamicColors(model.length);
+            backgroundColor = colors[0];
+            borderColor = colors[1];
+            options = {
+                responsive: true,
+                legend:{ position: 'top' },
+                title:{
+                    display:true,
+                    text:'Dosage counter per Medication'
+                },
+                animation:{
+                    animateScale: true,
+                    animateRotate: true
+                }
+            };
         break;
     }
 
@@ -28,28 +46,36 @@ function createChart(context, chartType, data, chartTitle = 'My Chart')
             datasets: [{
                 label: chartTitle,
                 data: model,
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255,99,132,1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
+                backgroundColor: backgroundColor,
+                borderColor: borderColor,
                 borderWidth: 1
             }]
         },
         options: options
     });
 }
+
+function dynamicColors(autoGenerateCount)
+{
+    var backgroundColors = [];
+    var borderColors=[];
+
+    var backgroundColor;
+    var borderColor;
+
+    for(let index = 0; index < autoGenerateCount; index++)
+    {
+        var r = Math.floor(Math.random() * 255);
+        var g = Math.floor(Math.random() * 255);
+        var b = Math.floor(Math.random() * 255);
+        backgroundColor ="rgb(" + r + "," + g + "," + b + ", 0.2)";
+        borderColor ="rgb(" + r + "," + g + "," + b + ", 1)";
+        backgroundColors.push(backgroundColor);
+        borderColors.push(borderColor);
+    }
+    return [ backgroundColors, borderColors ]
+}
+
 
 function buildDataModel()
 {
@@ -69,12 +95,35 @@ function buildDataOptions()
 
 function buildDoughnutModel(data)
 {
-
+    //console.log(extractCountPerMedicine(data));
+    return extractCountPerMedicine(data)
 }
 
 function buildDoughnutLabels(data)
 {
+    //console.log(extractNames(data));
     return extractNames(data);
+}
+
+function buildDoughnutOption()
+{
+    return  {
+        cutoutPercentage: 50
+    }
+}
+
+function extractCountPerMedicine(data)
+{
+    var counts  = [];
+    var count;
+    for(let index = 0; index < data.length; index++)
+    {
+        count = data[index].doseQuantity;
+        counts.push(count);
+    }
+    //console.log("this is length of count: ", counts.length);
+    return counts;
+
 }
 
 function extractNames(data)
@@ -89,6 +138,7 @@ function extractNames(data)
         name = name.charAt(0).toUpperCase() + name.slice(1);
         names.push(name);
     }
+    //console.log("this is length of name: ", names.length);
     return names;
 }
 
