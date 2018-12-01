@@ -11,6 +11,7 @@ router.get('/', function (req, res) {
 
 router.post('/submit', function (req, res) {
     console.log('UserDataEntry /submit');
+    //res.render('status', {processing:true});
     var qry = {
         given: req.body.firstname.toLowerCase(),
         family: req.body.lastname.toLowerCase(),
@@ -29,9 +30,24 @@ router.post('/submit', function (req, res) {
                 });
                 await p.save();
                 await dbutil.updateResources(p.userInfo.oid);
+                // res.render('status', {success:true, processing:false});
+                // console.log("going to set time out");
+                // setTimeout(3000);
+                // console.log("set time out done, should redirect");
+
+                // res.redirect('/');
             });
         }
-    });
+        // else{
+        //     res.render('status', {failure:true,processing:false});
+        //     res.redirect('/');
+        // }
+    })
+    // .catch(function(err)
+    // {
+    //     res.render('status', {failure:true,processing:false});
+    //     res.redirect('/');
+    // });
 });
 
 exports.router = router;
