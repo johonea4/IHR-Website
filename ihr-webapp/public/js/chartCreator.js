@@ -1,21 +1,33 @@
 'use-strict';
 
-function createChart(context, chartType, data, chartTitle = 'My Chart')
+function createChart(context, chartType, data, dataSetLabel = 'Dataset')
 {
     data = cleanData(data);
     var cleandata = JSON.parse(data);
     //console.logconsole.logconsole.log(cleandata.medications.length);
     var labels = buildDataLabels();  //label names 
     var model = buildDataModel();    //numerical values on y axis
-    var options = buildDataOptions();//need to ask...
+    var options = buildDataOptions(); //need to ask...
     var colors;
     var backgroundColor;
     var borderColor;
     switch(chartType)
     {
         case 'bar':
+            labels = buildHoursVsDaysLabels(cleandata.medications);
+            model = buildHoursVsDaysModel(cleandata.medications);
+            colors = dynamicColors(model.length);
+            backgroundColor = colors[0];
+            borderColor = colors[1];
+            options = buildHoursVsDaysOptions();
         break;
-        case 'line':
+        case 'horizontalBar':
+            labels = buildPuffsVsTabletsLabels(cleandata.medications);
+            model = buildPuffsVsTabletsModel(cleandata.medications);
+            colors = dynamicColors(model.length);
+            backgroundColor = colors[0];
+            borderColor = colors[1];
+            options = buildPuffsVsTabletsOptions();
         break;
         case 'doughnut':
             labels = buildDoughnutLabels(cleandata.medications);
@@ -44,7 +56,7 @@ function createChart(context, chartType, data, chartTitle = 'My Chart')
         data: {
             labels: labels,
             datasets: [{
-                label: chartTitle,
+                label: dataSetLabel,
                 data: model,
                 backgroundColor: backgroundColor,
                 borderColor: borderColor,
@@ -77,12 +89,12 @@ function dynamicColors(autoGenerateCount)
 }
 
 
-function buildDataModel()
+function buildDataModel(data)
 {
     return [12, 19, 3, 5, 2, 3];    //TODO replace with actual data
 }
 
-function buildDataLabels()
+function buildDataLabels(data)
 {
     //TODO replace with actual labels
     return ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
@@ -91,6 +103,103 @@ function buildDataLabels()
 function buildDataOptions()
 {
     return {scales: { yAxes: [{ ticks: { beginAtZero:true }}]}};
+}
+
+function buildPuffsVsTabletsModel(modelData)
+{
+    var puffs = 0;
+    var tablets = 0;
+    for(let index = 0; index < modelData.length; index++)
+    {
+        switch(modelData[index].doseUnits)
+        {
+            case "tablet":
+                tablets++;
+                break;
+            case "puffs":
+                puffs++;
+                break;
+        }
+    }
+    console.log(puffs, tablets);
+    return [puffs, tablets];
+}
+
+function buildPuffsVsTabletsLabels(modelData)
+{
+    var data = buildPuffsVsTabletsModel(modelData);
+    return ['Puffs(' + data[0] + ')', 'Tablets(' + data[1] + ')'];
+}
+
+function buildPuffsVsTabletsOptions()
+{
+    return {
+        responsive: true,
+        //legend: { position: 'top' },
+        title:{
+            display:true,
+            text:'Medicine Administration Method'
+        },
+        animation: { animateScale:true },
+        scales: { 
+            yAxes: [ {
+                ticks: {
+                    beginAtZero:true
+                }
+            } ],
+            xAxes: [ { 
+                display: true,
+                ticks: {
+                    beginAtZero:true,
+                    max: 25,
+                    stepSize: 5
+                }
+            } ]
+        }
+    };
+}
+
+function buildHoursVsDaysModel(modelData)
+{
+    var hours = 0;
+    var days = 0;
+    for(let index = 0; index < modelData.length; index++)
+    {
+        switch(modelData[index].periodUnit)
+        {
+            case "d":
+                days++;
+                break;
+            case "h":
+                hours++;
+                break;
+        }
+    }
+    return [hours, days];
+}
+
+function buildHoursVsDaysLabels(modelData)
+{
+    var data = buildHoursVsDaysModel(modelData);
+    return ['Hours(' + data[0] + ')', 'Days(' + data[1] + ')'];
+}
+
+function buildHoursVsDaysOptions()
+{
+    return {
+        responsive: true,
+        //legend: { position: 'top' },
+        title:{
+            display:true,
+            text:'Dosage Period Comparisons (Hours and Days)'
+        },
+        animation: { animateScale:true },
+        scales: { 
+            yAxes: [ { 
+                ticks: { beginAtZero:true }
+            } ]
+        }
+    };
 }
 
 function buildDoughnutModel(data)
@@ -114,7 +223,7 @@ function buildDoughnutOption()
 
 function extractCountPerMedicine(data)
 {
-    var counts  = [];
+    var counts = [];
     var count;
     for(let index = 0; index < data.length; index++)
     {
@@ -136,6 +245,7 @@ function extractNames(data)
         name = name.split(/( \d)/)[0];        
         
         name = name.charAt(0).toUpperCase() + name.slice(1);
+        //if(names.includes(name)) continue;
         names.push(name);
     }
     //console.log("this is length of name: ", names.length);

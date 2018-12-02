@@ -26,6 +26,6 @@ html
       canvas(name='chartB' id='chartB' width=400 heigh=400)
       canvas(name='chartC' id='chartC' width=400 heigh=400)
       script(type='text/javascript').
-        createChart(document.getElementById('chartA').getContext('2d'), 'bar', '#{chartData}');
-        createChart(document.getElementById('chartB').getContext('2d'), 'line', '#{chartData}');
+        createChart(document.getElementById('chartA').getContext('2d'), 'bar', '#{chartData}', "Medications", 1);
+        createChart(document.getElementById('chartB').getContext('2d'), 'horizontalBar', '#{chartData}', "Medication Unit Type");
         createChart(document.getElementById('chartC').getContext('2d'), 'doughnut', '#{chartData}');
