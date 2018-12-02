@@ -116,10 +116,12 @@ folder for images used in website
 ===== js		
 
 ====== chartCreator.js
-javascript for create chart to display user health information
+javascript for create chart to display user health information. +
+different cases for different chart types, build data models, assign colors, labels, etc
 
 ====== listCreator.js
-javascript for create list to display user health information
+javascript for create list to display user health information. +
+functions to clean data, put data into list.
 
 ****
 ****
@@ -128,19 +130,19 @@ javascript for create list to display user health information
 folder for javascript files used for each webpage
 
 ===== dashboard.js
-javascript for dashboard webpage
+javascript for dashboard webpage, function call to the chart
 
 ===== history.js
 javascript for history webpage
 
 ===== login.js
-javascript for login webpage
+javascript for login webpage, to handle user login, authentication etc.
 
 ===== logout.js
-javascript for logout webpage
+javascript for logout webpage, to handle log out.
 
 ===== tester.js
-javascript for tester webpage
+javascript for tester webpage, to get patient information like medication from FHIR.
 
 ===== UserDataEntry.js
 javascript for user data entry webpage
@@ -161,22 +163,24 @@ javascript for FHIR server webpage
 ****
 
 ==== views
-folder for pug files 
+folder for pug files. +
+Pug is a template engine for Node.js, the template engine allows us to inject data and then produce HTML.
 
 ===== dashboard.pug
-pug file for dashboard page
+pug file for dashboard page, have different charts represent patient medication.
 
 ===== history.pug
-pug file for history page
+pug file for history page, for display medication history.
 
 ===== index.pug
 pug file for index page
 
 ===== login.pug
-pug file for login page
+pug file for login page,dynamically handle login and display
 
 ===== UserDataEntry.pug
-pug file for UserDataEntry page
+pug file for UserDataEntry page， take the user input for the entry page. +
+ser use this page to enter name, birthday, gender, email and server to store information so can retrieve from server.
 
 <<<
 

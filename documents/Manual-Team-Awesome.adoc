@@ -42,6 +42,7 @@ https://cs6440-f18-prj11.apps.hdap.gatech.edu/
 
 footnote:[This Manual is for website end user. For matainance and development please see special instruction]
 
+FHIR server example patient: http://hapi.fhir.org/baseDstu3/Patient?gender=female&given=John&family=Doe&birthdate=1990-11-06&_pretty=true
 
 <<<
 == Login Page
@@ -68,24 +69,47 @@ Currently we are using Microsoft, future the website can add other OAuth like Go
 <<<
 
 == Main Page
-_After login, the user is directed to the main page. Here the user will have different areas to explore_ 
+_After login, the user is directed to the main page. Here the user will have different areas to explore_ +
+dashboard +
+history +
+add resource +
+.mainpage +
 
-.mainpage
 image::mainpage.png[main page]
 
 <<<
 
 == Dashboard
 _Dashboard is the place to provide users graphic visualtion of their health status_ +
-_For example, the blood pressure level with time, the volume of the medicine taken_  
+ 
+_Below we can see vertical bar chart represents our patient John Doe's medication intake summary by dosage period_ +
+_just one possiblity to display quantified data_ +
 
-.Dashboard
-image::dashboard.png[Dashboard]
+.Vertical Bar Chart
+image::dashboard_vb.png[Dashboard-vb]
 
 <<<
 
+_Below another example using horizontal bar chart_ +
+_represents medication by administration method_ +
+
+.Horizontal Bar Chart
+image::dashboard_hb.png[Dashboard_hb]
+
+<<<
+
+_An interesting donut chart below display all the medications of John_ +
+_The interactive part like you click a legend to diminish or add back the slice of the medication. For example, like Aspirin in image below_ +
+
+.Donut Chart
+image::dashboard_donut.png[Dashboard_donut]
+<<<
+
 == History
-_History is the resource with condensed historic health information_
+_History is the resource with condensed historic health information_ +
+
+History page focus on detialed information of medication paitient is taking or take before, in the form of list +
+User can click on each medication to expand the detials.
   
 
 .History
