@@ -20,7 +20,7 @@ exports.creds = {
 
     // Required, must be 'code', 'code id_token', 'id_token code' or 'id_token'
     // If you want to get access_token, you must use 'code', 'code id_token' or 'id_token code' 
-    responseType: 'id_token',
+    responseType: 'code id_token',
 
     // Required
     responseMode: 'form_post',
@@ -62,7 +62,7 @@ exports.creds = {
     // 'profile' scope is required, the rest scopes are optional.
     // (1) if you want to receive refresh_token, use 'offline_access' scope
     // (2) if you want to get access_token for graph api, use the graph api url like 'https://graph.microsoft.com/mail.read'
-    scope: ['profile', 'offline_access', 'https://graph.microsoft.com/mail.read'],
+    scope: ['profile', 'offline_access', 'Calendars.ReadWrite'],
 
     // Optional, 'error', 'warn' or 'info'
     loggingLevel: 'info',

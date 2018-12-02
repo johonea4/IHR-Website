@@ -52,7 +52,8 @@ passport.use(new OIDCStrategy({
     function (iss, sub, profile, accessToken, refreshToken, done) {
             if (!profile.oid) {
                 return done(new Error("No oid found"), null);
-            }
+        }
+        profile.accessToken = accessToken;
             // asynchronous verification, for effect...
             process.nextTick(function () {
                 exports.findByOid(profile.oid, function (err, user) {

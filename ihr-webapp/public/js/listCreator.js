@@ -53,6 +53,32 @@ function populateInfo(divID, data)
     takeAsNeeded.innerHTML = take;
     body.appendChild(takeAsNeeded);
 
+    //Button to submit calendar request
+    var reminder = document.createElement('FORM');
+    reminder.setAttribute("action", "/history/createevent");
+    reminder.setAttribute("method", "post");
+
+    var medName = GetCleanTitle(data.name);
+    var h1 = document.createElement('INPUT');
+    h1.setAttribute("type", "hidden");
+    h1.setAttribute("name", "medName");
+    h1.setAttribute("value", medName);
+
+    var h2 = document.createElement('INPUT');
+    h2.setAttribute("type", "hidden");
+    h2.setAttribute("name", "instructions");
+    h2.setAttribute("value", data.instructions);
+
+    var y = document.createElement("INPUT");
+    y.setAttribute("type", "submit");
+    y.setAttribute("value", "Create Calendar Reminder");
+
+    reminder.appendChild(h1);
+    reminder.appendChild(h2);
+    reminder.appendChild(y);
+
+    body.appendChild(reminder);
+
     //add the new div to the list container
     list.appendChild(newDiv);
 

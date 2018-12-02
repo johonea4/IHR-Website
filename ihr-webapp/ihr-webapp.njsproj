@@ -33,6 +33,8 @@
   <ItemGroup>
     <Compile Include="app.js" />
     <Compile Include="config.js" />
+    <Compile Include="public\js\chartCreator.js" />
+    <Compile Include="public\js\listCreator.js" />
     <Compile Include="routes\dashboard.js">
       <SubType>Code</SubType>
     </Compile>
@@ -77,6 +79,7 @@
   <ItemGroup>
     <Folder Include="public\" />
     <Folder Include="public\images\" />
+    <Folder Include="public\js\" />
     <Folder Include="utils\" />
     <Folder Include="routes\" />
     <Folder Include="views\" />
