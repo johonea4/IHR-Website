@@ -18,13 +18,13 @@ html
     div.container-fluid
       div.bigimage
         div.jumbotron
-          h1 Welcome to your dashboard
+          h1 Medication Dashboard
         div.bottom-left
-          p Charted below are statistics for your perscriptions...
-    div.charts(style="width: 30%;")
+          h3 Charted below are statistics for your perscriptions...
+    div.charts(style="width: 50%;")
       canvas(name='chartA' id='chartA' width=400 height=400)
-      canvas(name='chartB' id='chartB' width=400 heigh=400)
-      canvas(name='chartC' id='chartC' width=400 heigh=400)
+      canvas(name='chartB' id='chartB' width=400 height=400)
+      canvas(name='chartC' id='chartC' width=400 height=400)
       script(type='text/javascript').
         createChart(document.getElementById('chartA').getContext('2d'), 'bar', '#{chartData}', "Medications", 1);
         createChart(document.getElementById('chartB').getContext('2d'), 'horizontalBar', '#{chartData}', "Medication Unit Type");

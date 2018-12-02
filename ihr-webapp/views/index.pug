@@ -21,14 +21,14 @@
         margin-top: 40%;
       }
       .part1 {
-        width:50%;
+        width:100%;
         height: 50%;
         float: left;
         background: white;
         background-repeat: no-repeat;
       }
       .part2 {
-        width:50%;
+        width:100%;
         height: 50%;
         float: left;
         background: white;
@@ -36,13 +36,13 @@
 
       }
       .part3 {
-        width:50%;
+        width:100%;
         height: 50%;
         float: left;
         background: white;
       }
       .part4 {
-        width:50%;
+        width:100%;
         height: 50%;
         float: right;
         background: white;
@@ -58,13 +58,13 @@
           p Welcome, #{user.displayName}
           p
           div.part1
-            a.small(href="dashboard") View Dashboard
+            a.btn.btn-default(href="dashboard") View Dashboard
           p
           div.part2
-            a.big(href="history") View History
+            a.btn.btn-default(href="history") View History
           p
           div.part3
-            a.big(href="UserDataEntry") Add A Resource
+            a.btn.btn-default(href="UserDataEntry") Add A Resource
           p
           div.bottom
             form(action='/logout', method='POST' )

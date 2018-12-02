@@ -138,7 +138,7 @@ function buildPuffsVsTabletsOptions()
         //legend: { position: 'top' },
         title:{
             display:true,
-            text:'Medicine Administration Method'
+            text:'Medication Administration Method'
         },
         animation: { animateScale:true },
         scales: { 
