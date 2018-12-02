@@ -29,13 +29,25 @@ function createChart(context, chartType, data, dataSetLabel = 'Dataset')
             borderColor = colors[1];
             options = buildPuffsVsTabletsOptions();
         break;
+        case 'line':
+            var myChart = new Chart(context, {
+                type: chartType,
+                data: {
+                    labels: buildDataLabels(),
+                    datasets: [ buildRandomDataset('Asprin', 'red', 20, 25), 
+                    buildRandomDataset('Tylenol', 'blue', 9, 15), 
+                    buildRandomDataset('Naproxen', 'green', 1, 7) ]
+                },
+                options: options
+            });
+            return;
+        break;
         case 'doughnut':
             labels = buildDoughnutLabels(cleandata.medications);
             model = buildDoughnutModel(cleandata.medications);
             //options = Chart.defaults.doughnut;//buildDataOptions();
             colors = dynamicColors(model.length);
-            backgroundColor = colors[0];
-            borderColor = colors[1];
+            backgroundColor = colors[1];
             options = {
                 responsive: true,
                 legend:{ position: 'top' },
@@ -60,7 +72,7 @@ function createChart(context, chartType, data, dataSetLabel = 'Dataset')
                 data: model,
                 backgroundColor: backgroundColor,
                 borderColor: borderColor,
-                borderWidth: 1
+                borderWidth: 3
             }]
         },
         options: options
@@ -88,16 +100,29 @@ function dynamicColors(autoGenerateCount)
     return [ backgroundColors, borderColors ]
 }
 
+function buildRandomDataset(name, color, seedMin, seedMax)
+{
+    return {
+        label: name,
+        backgroundColor: color,
+        borderColor: color,
+        data: [ getRandomInt(seedMin, seedMax),
+             getRandomInt(seedMin, seedMax), getRandomInt(seedMin, seedMax), getRandomInt(seedMin, seedMax),
+              getRandomInt(seedMin, seedMax), getRandomInt(seedMin, seedMax), getRandomInt(seedMin, seedMax),
+               getRandomInt(seedMin, seedMax), getRandomInt(seedMin, seedMax), getRandomInt(seedMin, seedMax),
+               getRandomInt(seedMin, seedMax) , getRandomInt(seedMin, seedMax), getRandomInt(seedMin, seedMax) ],
+        fill: false
+    }
+}
 
-function buildDataModel(data)
+function buildDataModel()
 {
     return [12, 19, 3, 5, 2, 3];    //TODO replace with actual data
 }
 
-function buildDataLabels(data)
+function buildDataLabels()
 {
-    //TODO replace with actual labels
-    return ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
+    return ["July 1st", "July 15th", "August 1st", "August 15th", "September 1st", "September 15th"];
 }
 
 function buildDataOptions()
@@ -151,8 +176,8 @@ function buildPuffsVsTabletsOptions()
                 display: true,
                 ticks: {
                     beginAtZero:true,
-                    max: 25,
-                    stepSize: 5
+                    //max: max + 5,
+                    //stepSize: 5
                 }
             } ]
         }
@@ -204,13 +229,11 @@ function buildHoursVsDaysOptions()
 
 function buildDoughnutModel(data)
 {
-    //console.log(extractCountPerMedicine(data));
     return extractCountPerMedicine(data)
 }
 
 function buildDoughnutLabels(data)
 {
-    //console.log(extractNames(data));
     return extractNames(data);
 }
 
@@ -248,7 +271,6 @@ function extractNames(data)
         //if(names.includes(name)) continue;
         names.push(name);
     }
-    //console.log("this is length of name: ", names.length);
     return names;
 }
 
@@ -270,3 +292,7 @@ function cleanData(dirtyData)
     return dirtyData;
 }
 
+function getRandomInt(minInt, maxInt) 
+{
+    return Math.floor(((Math.floor(maxInt) - Math.floor(minInt)) * Math.random()) + minInt);
+}
