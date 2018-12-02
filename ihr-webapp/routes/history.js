@@ -35,7 +35,7 @@ router.post('/createevent', function (req, res) {
     tomorrow.setDate(today.getDate() + 1)
 
     var startTime = today.toISOString().split('T')[0] + 'T00:00:00';
-    var endTime = tomorrow.toISOString().split('T')[0] + '00:00:00';
+    var endTime = tomorrow.toISOString().split('T')[0] + 'T00:00:00';
 
     var event = {
         subject: "Take " + title,
